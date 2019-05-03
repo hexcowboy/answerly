@@ -1,2 +1,5 @@
 django<2.1
 psycopg2-binary
+django-markdownify
+django-crispy-forms
+
