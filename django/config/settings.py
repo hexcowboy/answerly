@@ -142,3 +142,8 @@ MARKDOWNIFY_WHITELIST_TAGS = [
 
 # Crispy Forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Authentication settings
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'questions:index'
+LOGOUT_REDIRECT_URL = 'questions:index'
