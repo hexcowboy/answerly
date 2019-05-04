@@ -1,13 +1,20 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseBadRequest
-from django.views.generic import CreateView, DetailView
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseRedirect,
+)
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    UpdateView,
+)
 
 from .forms import (
     AnswerForm,
     AnswerAcceptanceForm,
     QuestionForm,
 )
-from .models import Question
+from .models import Answer, Question
 
 
 class AnswerCreateView(LoginRequiredMixin, CreateView):
@@ -40,6 +47,19 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
 
     def get_question(self):
         return Question.objects.get(pk=self.kwargs['pk'])
+
+
+class AnswerUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = AnswerAcceptanceForm
+    queryset = Answer.objects.all()
+
+    def get_success_url(self):
+        return self.object.question.get_absolute_url()
+
+    def form_invalid(self, form):
+        return HttpResponseRedirect(
+            redirect_to=self.object.question.get_absolute_url()
+        )
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
