@@ -3,9 +3,13 @@ from django.http import (
     HttpResponseBadRequest,
     HttpResponseRedirect,
 )
+from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import (
     CreateView,
+    DayArchiveView,
     DetailView,
+    RedirectView,
     UpdateView,
 )
 
@@ -104,3 +108,23 @@ class QuestionDetailView(DetailView):
                 'reject_form': self.REJECT_FORM,
             })
         return context
+
+
+class DailyQuestionListView(DayArchiveView):
+    queryset = Question.objects.all()
+    date_field = 'created'
+    month_format = '%m'
+    allow_empty = True
+
+
+class TodaysQuestionListView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        today= timezone.now()
+        return reverse(
+            'questions:daily_question',
+            kwargs={
+                'day': today.day,
+                'month': today.month,
+                'year': today.year,
+            }
+        )
