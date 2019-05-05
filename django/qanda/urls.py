@@ -3,10 +3,10 @@ from django.urls.conf import path
 from . import views
 
 app_name = 'qanda'
-url_patterns = [
+urlpatterns = [
     path(
         'ask',
-        views.AskQuestionView.as_view(),
+        views.QuestionCreateView.as_view(),
         name='ask'
     ),
     path(
