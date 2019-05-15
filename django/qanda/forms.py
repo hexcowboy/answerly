@@ -29,7 +29,7 @@ class AnswerForm(forms.ModelForm):
     )
 
     class Meta:
-        models = Answer
+        model = Answer
         fields = ['answer', 'user', 'question', ]
 
 

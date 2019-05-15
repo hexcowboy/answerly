@@ -47,13 +47,14 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
         elif action == 'PREVIEW':
             context = self.get_context_data(preview=form.cleaned_data['answer'])
-            return HttpResponseBadRequest()
+            return self.render_to_response(context=context)
+        return HttpResponseBadRequest()
 
     def get_question(self):
         return Question.objects.get(pk=self.kwargs['pk'])
 
 
-class AnswerUpdateView(LoginRequiredMixin, UpdateView):
+class AnswerAcceptanceUpdateView(LoginRequiredMixin, UpdateView):
     form_class = AnswerAcceptanceForm
     queryset = Answer.objects.all()
 
@@ -86,6 +87,9 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
             context = self.get_context_data(preview=preview)
             return self.render_to_response(context=context)
         return HttpResponseBadRequest()
+
+    def get_success_url(self):
+        return self.object.question.get_absolute_url()
 
 
 class QuestionDetailView(DetailView):
@@ -121,7 +125,7 @@ class TodaysQuestionListView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         today= timezone.now()
         return reverse(
-            'questions:daily_question',
+            'qanda:daily_questions',
             kwargs={
                 'day': today.day,
                 'month': today.month,

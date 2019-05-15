@@ -145,5 +145,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Authentication settings
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'questions:index'
-LOGOUT_REDIRECT_URL = 'questions:index'
+LOGIN_REDIRECT_URL = 'qanda:index'
+LOGOUT_REDIRECT_URL = 'qanda:index'
