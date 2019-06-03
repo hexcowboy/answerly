@@ -89,7 +89,7 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
         return HttpResponseBadRequest()
 
     def get_success_url(self):
-        return self.object.question.get_absolute_url()
+        return self.object.get_absolute_url()
 
 
 class QuestionDetailView(DetailView):
