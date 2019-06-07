@@ -13,8 +13,12 @@ media
 media_root/
 
 ### Environment ###
+.DS_Store
 .env
 
 ### IDE ###
 .idea
 
+### Testing ###
+.coverage
+htmlcov/
