@@ -27,3 +27,14 @@ def bulk_load(questions):
             action, result = result.popitem()
             logger.error(FAILED_TO_LOAD_ERROR.format(result['_id'], result))
     return all_ok
+
+def search_for_questions(query):
+    client = get_client()
+    result = client.search(index=settings.ES_INDEX, body={
+        'query': {
+            'match': {
+                'text': query,
+            },
+        },
+    })
+    return (h['_source'] for h in result['hits']['hits'])

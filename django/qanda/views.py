@@ -10,6 +10,7 @@ from django.views.generic import (
     DayArchiveView,
     DetailView,
     RedirectView,
+    TemplateView,
     UpdateView,
 )
 
@@ -19,6 +20,7 @@ from .forms import (
     QuestionForm,
 )
 from .models import Answer, Question
+from .service.elasticsearch import search_for_questions
 
 
 class AnswerCreateView(LoginRequiredMixin, CreateView):
@@ -132,3 +134,15 @@ class TodaysQuestionListView(RedirectView):
                 'year': today.year,
             }
         )
+
+
+class SearchView(TemplateView):
+    template_name = 'qanda/search.html'
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('q', None)
+        context = super().get_context_data(query=query, **kwargs)
+        if query:
+            results = search_for_questions(query)
+            context['hits'] = results
+        return context

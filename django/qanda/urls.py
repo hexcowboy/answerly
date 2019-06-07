@@ -34,4 +34,9 @@ urlpatterns = [
         views.TodaysQuestionListView.as_view(),
         name='index',
     ),
+    path(
+        'q/search',
+        views.SearchView.as_view(),
+        name='question_search',
+    ),
 ]

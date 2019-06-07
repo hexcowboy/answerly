@@ -15,7 +15,7 @@
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
       <a href="{% url 'qanda:index' %}" class="navbar-brand">Answerly</a>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a href="{% url 'qanda:ask' %}" class="nav-link">Ask</a>
         </li>
@@ -35,6 +35,10 @@
           </li>
         {% endif %}
       </ul>
+      <form class="form-inline my-2 my-lg-0" action="{% url 'qanda:question_search' %}" method="get">
+        <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
   </nav>
   <div class="container">
