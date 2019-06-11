@@ -4,3 +4,4 @@ django-markdownify
 django-crispy-forms
 elasticsearch==6.0.0
 
+coverage==4.4.2
