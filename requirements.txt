@@ -5,3 +5,5 @@ django-crispy-forms
 elasticsearch==6.0.0
 
 coverage==4.4.2
+factory-boy=2.9.2
+
