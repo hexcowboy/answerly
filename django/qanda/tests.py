@@ -5,9 +5,7 @@ from unittest.mock import patch
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase, RequestFactory
-# from django.utils.dateparse import parse_datetime
-from django.template.defaultfilters import date as _date
-from django.template.defaultfilters import time as _time
+from django.template.defaultfilters import date, time
 
 from .factories import QuestionFactory
 from .models import Question
@@ -84,7 +82,6 @@ class DailyQuestionListTestCase(TestCase):
                 id=question.id,
                 title=question.title,
                 username=question.user.username,
-                date=_date(question.created) + ', ' + _time(question.created)
-                # date=question.created.strftime(settings.DATETIME_FORMAT)
+                date=date(question.created) + ', ' + time(question.created)
             )
             self.assertInHTML(needle, rendered_content)
