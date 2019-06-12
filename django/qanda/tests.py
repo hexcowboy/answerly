@@ -5,14 +5,13 @@ from unittest.mock import patch
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase, RequestFactory
-
-from elasticsearch import Elasticsearch
+# from django.utils.dateparse import parse_datetime
+from django.template.defaultfilters import date as _date
+from django.template.defaultfilters import time as _time
 
 from .factories import QuestionFactory
 from .models import Question
 from .views import DailyQuestionListView
-
-QUESTION_CREATED_STRFTIME = '%Y-%m-%d %H:%M'
 
 
 class QuestionSaveTestCase(TestCase):
@@ -76,7 +75,7 @@ class DailyQuestionListTestCase(TestCase):
             day=self.TODAY.day
         )
 
-        self.assertEqual(200, response.STATUS_CODE)
+        self.assertEqual(200, response.status_code)
         self.assertEqual(10, response.context_data['object_list'].count())
         rendered_content = response.rendered_content
 
@@ -85,6 +84,7 @@ class DailyQuestionListTestCase(TestCase):
                 id=question.id,
                 title=question.title,
                 username=question.user.username,
-                date=question.created.strftime(QUESTION_CREATED_STRFTIME)
+                date=_date(question.created) + ', ' + _time(question.created)
+                # date=question.created.strftime(settings.DATETIME_FORMAT)
             )
             self.assertInHTML(needle, rendered_content)
