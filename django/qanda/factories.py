@@ -17,5 +17,5 @@ class QuestionFactory(factory.DjangoModelFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        with patch('qanda.service.elasticsearch.ElasticSearch'):
+        with patch('qanda.service.elasticsearch.Elasticsearch'):
             return super()._create(model_class, *args, **kwargs)

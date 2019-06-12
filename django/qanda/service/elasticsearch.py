@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from elasticsearch import Elasticsearch, TransportError
+from elasticsearch import Elasticsearch
 from elasticsearch.helpers import streaming_bulk
 
 FAILED_TO_LOAD_ERROR = 'Failed to load {}: {!r}'
