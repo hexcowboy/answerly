@@ -22,3 +22,5 @@ media_root/
 ### Testing ###
 .coverage
 htmlcov/
+chromedriver
+
