@@ -131,7 +131,6 @@ class AskQuestionTestCase(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = WebDriver(executable_path=settings.CHROME_DRIVER)
-        # cls.selenium.implicitly_wait(10)
 
     @classmethod
     def tearDownClass(cls):
